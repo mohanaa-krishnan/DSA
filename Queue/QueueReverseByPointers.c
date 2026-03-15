@@ -1,0 +1,88 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct node{
+    int data;
+    struct node *next;
+};
+struct node *front=NULL;
+struct node *rear=NULL;
+void push(int n);
+void reverse();
+void display();
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    if(n>=1)
+    {
+    push(n);
+    display();
+    reverse();
+    display();
+    }
+    return 0;
+}
+
+void push(int n)
+{
+
+for(int i=0;i<n;i++)
+{
+    struct node *newnode=NULL;
+newnode=malloc(sizeof(struct node));
+if(newnode==NULL)
+{
+    printf("memory allocation failed");
+    exit(1);
+}
+scanf("%d",&newnode->data);
+newnode->next=NULL;
+if(front==NULL)
+{
+    front=newnode;
+    rear=newnode;
+}
+else{
+    rear->next=newnode;
+    rear=newnode;
+}
+}   
+}
+
+
+void reverse()
+{
+    struct node *curr=front;
+    struct node *prev=NULL;
+    struct node *next=NULL;
+    rear=front;
+    while(curr!=NULL)
+    {
+        next=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+    }
+    front=prev;
+
+}
+
+void display()
+{
+    struct node *ptr=NULL;
+    if(front== NULL)
+    {
+        printf("Queue is empty.\n");
+        return;
+    }
+    ptr=front;
+    printf("Current Queue: ");
+    while(ptr!=NULL)
+    {
+        printf("%d ",ptr->data);
+        ptr=ptr->next;
+    }
+    printf("\n");
+    
+}
