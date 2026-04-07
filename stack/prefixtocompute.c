@@ -16,7 +16,10 @@ int main()
     }
     for(int i=n-1;i>=0;i--)
     {
+        if(rev[i])
         printf("%s",rev[i]);
     }
+    printf("\n");
+    
 return 0;
 }

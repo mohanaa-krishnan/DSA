@@ -27,9 +27,9 @@ int main()
     {
         push(atoi(token));
     }
-    token()
+    token=strtok(NULL," ");
  }
- display();
+ //display();
  printf("%d",pop());
  return 0;
 }
@@ -64,6 +64,11 @@ void operation(char *op)
     }
     else if(strcmp(op,"/")==0)
     {
+        if(b==0)
+        {
+            printf("division by zero error");
+            exit(1);
+        }
         push(a/b);
     }
 }

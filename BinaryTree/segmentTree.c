@@ -15,7 +15,7 @@ int query (struct node *root,int qstart,int qend);
 void display(struct node *root);
 int main()
 {
-    int arr[]={2,3,5,6,4,9,8,7};
+    int arr[]={8,3,10,1,6,14};
     int q1,q2;
     scanf("%d %d",&q1,&q2);
 
@@ -29,7 +29,7 @@ return 0;
 
 struct node *create(int arr[])
 {
-    int size=7;
+    int size=5;
     return insertion(0,size,arr);
 }
 struct node *insertion(int left,int right,int arr[])
