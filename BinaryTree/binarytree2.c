@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<stdbool.h>
 
+#define MAX(a,b) ((a)>(b)?(a):(b))
 struct node{
     int data;
     struct node *left;
@@ -16,10 +17,16 @@ int countt(struct node *root);
 bool issibiling(struct node *root,struct node *x,struct node *y);
 int level(struct node *root,struct node *x,int levell);
 struct node *find(struct node *root,int val);
+struct node *find2(struct node *root,int val);
 bool iscousins(struct node *root,int x,int y);
 
 bool symmetric(struct node *root);
+\
+struct node *inorder(struct node *root);
+struct node *preorder(struct node *root);
+struct node *postorder(struct node *root);
 
+int height(struct node *root,int *diameter);
 
 int main()
 {
@@ -45,8 +52,36 @@ int main()
    printf("%d\n",issibiling(root,find(root,x),find(root,y)));
    printf("%d",iscousins(root,x,y));
    */
+  int value;
+  scanf("%d",&value);
 
-   printf("%d",symmetric(root));
+  struct node *Root=find2(root,value);
+
+  if(Root!=NULL)
+  {
+    printf("%d\n",Root->data);
+    if(Root->left!=NULL)
+    {
+        printf("%d",Root->left->data);
+
+    }
+    printf("%d",Root->data);
+    if(Root->right!=NULL)
+    {
+        printf("%d",Root->right->data);
+    }
+    printf("\n");
+    
+
+
+  }
+  struct node *ROOT=postorder(root);
+  int diameter=0;
+  int heightt=height(root,&diameter);
+  printf("\n%d\n%d",heightt,diameter);
+  return 0;
+
+   //printf("%d",symmetric(root));
     }
 
 struct node *nodecreation(int value)
@@ -240,3 +275,102 @@ bool symmetric(struct node* root) {
 
 }
     
+struct node *find2(struct node *root,int val)
+{
+    if(root==NULL)
+    {
+        return NULL;
+    }
+     struct node *leftt=NULL;
+     struct node *rightt=NULL;
+
+    if(root->data==val)
+    {
+        return root;
+    }
+    if(val<root->data)
+    {
+       leftt=find2(root->left,val);
+    }
+    if(leftt!=NULL)
+    {
+        return leftt;
+    }
+    if(val>root->data)
+    {
+        rightt=find2(root->right,val);
+    }
+    if(rightt!=NULL)
+    {
+        return rightt;
+    }
+    return NULL;
+    
+}
+
+struct node *inorder(struct node *root)
+{
+    if(root==NULL)
+    {
+        return NULL;
+    }
+    struct node *l=inorder(root->left);
+    if(l==NULL)
+    {
+        printf("%d",root->data);
+    }
+    return inorder(root->right);
+}
+
+struct node *preorder(struct node *root)
+{
+    if(root==NULL)
+    {
+        return NULL;
+    }
+     printf("%d",root->data);
+    struct node *l=preorder(root->left);
+    
+    if(l==NULL)
+    
+        {
+           
+        return preorder(root->right);
+    }
+    
+    return NULL;
+}
+
+struct node *postorder(struct node *root)
+{
+    if(root!=NULL)
+    {
+        
+    
+    struct node *l=postorder(root->left);
+    struct node *r=postorder(root->right);
+if(l==NULL||r==NULL)
+{
+printf("%d",root->data);
+}    
+}
+    
+    
+    return NULL;
+}
+
+int height(struct node *root,int *diameter)
+{
+    if(root==NULL)
+    {
+        return 0;
+    }
+    int l=height(root->left,diameter);
+    int r=height(root->right,diameter);
+
+    int dia=l+r+1;
+    *diameter=MAX(*diameter,dia);
+
+    return MAX(l,r)+1;
+
+}
